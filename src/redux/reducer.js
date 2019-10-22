@@ -1,7 +1,8 @@
 import { prop } from 'ramda';
+import uuid from 'uuid/v4';
 
 const initialState = {
-  sessionId: 'KKKK',
+  sessionId: null,
   credentialValidated: true,
 };
 
@@ -23,7 +24,7 @@ export default (state = initialState, action) => {
     case ACTIONS.CREATE_SESSION:
       return {
         ...state,
-        sessionId: 'kk'
+        sessionId: uuid(),
       };
     default:
       return state;
