@@ -1,6 +1,8 @@
+import { prop } from 'ramda';
+
 const initialState = {
-  sessionId: null,
-  credentialValidated: null,
+  sessionId: 'KKKK',
+  credentialValidated: true,
 };
 
 const ACTIONS = {
@@ -11,6 +13,10 @@ const ACTIONS = {
 export const createSession = () => ({
   type: ACTIONS.CREATE_SESSION,
 });
+
+export const getSessionId = prop('sessionId');
+
+export const getIsCredentialValidated = prop('credentialValidated');
 
 export default (state = initialState, action) => {
   switch(action.type) {
