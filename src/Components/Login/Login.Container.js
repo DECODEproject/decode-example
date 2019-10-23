@@ -1,11 +1,11 @@
 import {connect} from 'react-redux';
 import {createStructuredSelector} from 'reselect';
 import Component from './Login.Component';
-import { getSessionId, getIsCredentialValidated, createSession } from '../../redux/reducer';
+import { getIsCredentialVerified, getCallback, createSession } from '../../redux/reducer';
 
 const mapStateToProps = createStructuredSelector({
-  sessionId: getSessionId,
-  isCredentialValidated: getIsCredentialValidated,
+  callback: getCallback,
+  isCredentialVerified: getIsCredentialVerified,
 });
 
 const mapDispatchToProps = {

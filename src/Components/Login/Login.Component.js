@@ -3,17 +3,18 @@ import QRCode from 'react-qr-code';
 
 const Login = ({
   createSession,
-  sessionId,
-  isCredentialValidated,
+  callback,
+  isCredentialVerified,
 }) => {
-  useEffect(() => createSession(), []);
+  useEffect(() => { createSession() }, []);
   return (
     <React.Fragment>
-      <QRCode value="KK" />
-      <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+      <QRCode value={callback} />
+      <a className="App-link" href={callback} target="_blank" rel="noopener noreferrer">
         Login with DECODE app
       </a>
-      <p>Session id: {sessionId}, {isCredentialValidated ? 'Valid!' : 'Invalid'}</p>
+      <p>{callback}</p>
+      <p>{isCredentialVerified ? 'Valid!' : 'Invalid'}</p>
     </React.Fragment>
   );
 };
