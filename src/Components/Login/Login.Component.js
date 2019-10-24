@@ -1,20 +1,30 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import QRCode from 'react-qr-code';
+import { compose, split, map } from 'ramda';
+import useInterval from '../../lib/use-interval';
 
 const Login = ({
+  sessionId,
   createSession,
-  callback,
+  decodeAppUrl,
   isCredentialVerified,
+  checkSession,
 }) => {
   useEffect(() => { createSession() }, []);
+  useInterval(() => { checkSession(sessionId) }, 5000);
   return (
     <React.Fragment>
-      <QRCode value={callback} />
-      <a className="App-link" href={callback} target="_blank" rel="noopener noreferrer">
+      <QRCode value={decodeAppUrl} />
+      <a className="App-link" href={decodeAppUrl} target="_blank" rel="noopener noreferrer">
         Login with DECODE app
       </a>
-      <p>{callback}</p>
-      <p>{isCredentialVerified ? 'Valid!' : 'Invalid'}</p>
+      {
+        compose(
+          map(item => <span>{item}<br/></span>),
+          split(/[\?&]/g),
+        )(decodeAppUrl)
+      }
+      <h3>{isCredentialVerified ? 'Verified!' : 'Not verified'}</h3>
     </React.Fragment>
   );
 };
