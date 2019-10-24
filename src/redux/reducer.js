@@ -1,9 +1,10 @@
+import 'dotenv/config';
 import { prop } from 'ramda';
 import { createSelector } from 'reselect';
 import uuid from 'uuid/v4';
 import fetch from 'node-fetch';
 
-const backendUrl = 'http://192.168.1.37:3000';
+const backendUrl = `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.REACT_APP_BACKEND_PORT}`;
 
 const initialState = {
   sessionId: null,
