@@ -9,6 +9,7 @@ const backendUrl = `http://${process.env.REACT_APP_BACKEND_HOST}:${process.env.R
 const initialState = {
   sessionId: null,
   credentialVerified: false,
+  sharedData: [],
 };
 
 const ACTIONS = {
@@ -20,6 +21,7 @@ const ACTIONS = {
 };
 
 export const checkSession = sessionId => async(dispatch) => {
+  console.log('URL: ', `${backendUrl}/session/${sessionId}`);
   dispatch({
     type: ACTIONS.CHECK_SESSION_REQUEST,
   });
@@ -27,10 +29,11 @@ export const checkSession = sessionId => async(dispatch) => {
     const resp = await fetch(`${backendUrl}/session/${sessionId}`);
     const data = await resp.json();
     console.log('Data: ', data);
-    const { sessionStatus } = data;
+    const { sessionStatus, sharedData } = data;
     dispatch({
       type: ACTIONS.CHECK_SESSION_SUCCESS,
       sessionStatus,
+      sharedData,
     });
   } catch (e) {
     dispatch({
@@ -45,6 +48,8 @@ export const createSession = () => ({
 });
 
 export const getSessionId = prop('sessionId');
+
+export const getSharedData = prop('sharedData');
 
 export const getDecodeAppUrl = createSelector(
   getSessionId,
@@ -65,6 +70,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         credentialVerified: action.sessionStatus ? action.sessionStatus === 'valid' : false,
+        sharedData: action.sharedData,
       };
     case ACTIONS.CHECK_SESSION_FAILURE:
       console.log('Error: ', action.e);
