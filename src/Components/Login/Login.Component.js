@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import QRCode from 'react-qr-code';
-import { compose, split, map, isEmpty } from 'ramda';
+import { compose, split, map } from 'ramda';
 import useInterval from '../../lib/use-interval';
 
 const Login = ({
